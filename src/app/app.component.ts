@@ -9,10 +9,10 @@ import { DataService } from './data.service';
 export class AppComponent implements OnInit {
   title = 'data-forest-frontend';
 
-  constructor(private dataService: DataService) {
+  constructor() {
   }
 
   ngOnInit() {
-    this.dataService.fetchData();
+    // this.dataService.fetchData();
   }
 }

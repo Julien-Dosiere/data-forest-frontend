@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import {Forest, ForestService} from "./forest.service";
 
 @Component({
   selector: 'app-forest',
@@ -6,10 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./forest.component.scss']
 })
 export class ForestComponent implements OnInit {
-
-  constructor() { }
+  forestListSub?: Subscription;
+  forests?: Forest[];
+  constructor(private forestService: ForestService) { }
 
   ngOnInit(): void {
+    this.forestService.getAll();
+    this.forestListSub = this.forestService.forestslist.subscribe(forestList => {
+      this.forests = forestList
+    });
   }
 
 }
