@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import { Subscription } from 'rxjs';
 import {AnalyticsService} from "./analytics.service";
 import {NgForm} from "@angular/forms";
+import {Forest, ForestService} from "../forest/forest.service";
 
 @Component({
   selector: 'app-analytics',
@@ -12,6 +13,7 @@ export class AnalyticsComponent implements OnInit {
   tableSub!: Subscription;
   table?: string;
   errorMessage?: string | null;
+  isLoading = false;
   dataTypes = [
     'age',
     'area',
@@ -20,13 +22,18 @@ export class AnalyticsComponent implements OnInit {
     'state',
   ]
   @ViewChild('form') form!: NgForm;
+  selectedForest?: Forest;
 
 
 
-  constructor(private analyticsService: AnalyticsService) {}
+
+  constructor(private analyticsService: AnalyticsService, private forestService: ForestService) {}
 
   ngOnInit(): void {
+
     this.tableSub = this.analyticsService.table.subscribe(table => this.table = table);
+    this.selectedForest = this.forestService.lastSelectedForest;
+
     this.analyticsService.getTable();
 
   }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Subject} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,14 +10,14 @@ export class HttpService {
 
   error = new Subject();
 
-  API_URL = 'https://jd-data-forest.herokuapp.com/'
   constructor(private httpClient: HttpClient) { }
 
   get(URN: string = '') {
     console.log('fetching..');
     return this.httpClient
       .get<any>(
-        this.API_URL + URN,
+        environment.API_URL + URN,
+
       )
   }
 
@@ -27,7 +28,7 @@ export class HttpService {
 
     return this.httpClient
       .post(
-        this.API_URL + URN,
+        environment.API_URL + URN,
         formData,
         {
           responseType: 'text',}

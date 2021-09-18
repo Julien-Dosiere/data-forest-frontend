@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpService} from "../http.service";
-import {Subject} from "rxjs";
+import {Subject, Subscription} from "rxjs";
+import {Forest, ForestService} from '../forest/forest.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,6 @@ import {Subject} from "rxjs";
 export class AnalyticsService {
 
   table = new Subject<string>();
-
   params = {
     forest: 10,
     rows: 'area',
@@ -16,11 +16,18 @@ export class AnalyticsService {
     format: 'json',
   }
 
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService, private forestService: ForestService) {
+  }
 
   getTable(columns?: string, rows?: string): void {
+
+    const selectedForest = this.forestService.lastSelectedForest;
+    if(selectedForest == undefined)
+      return;
+    const forestId = selectedForest.id.toString();
+
     const formData = new FormData()
-    formData.append('forest_id', '10');
+    formData.append('forest_id', forestId);
     formData.append('rows', rows ?? 'area');
     formData.append('columns', columns ?? 'species');
     formData.append('format', 'html');

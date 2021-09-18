@@ -12,6 +12,7 @@ import {MapComponent} from "./map/map.component";
 import {ManageComponent} from "./manage/manage.component";
 import {ErrorPageComponent} from "./error-page/error-page.component";
 import { FormsModule } from '@angular/forms';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { FormsModule } from '@angular/forms';
     MapComponent,
     ManageComponent,
     ErrorPageComponent,
+    SpinnerComponent,
 
   ],
   imports: [

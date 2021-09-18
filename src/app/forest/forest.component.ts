@@ -38,5 +38,13 @@ export class ForestComponent implements OnInit {
 
   }
 
+  deleteAll(): void{
+    if (this.forests?.length == 0)
+      return;
+
+    this.isLoading = true;
+    this.forestService.deleteAll();
+  }
+
 
 }

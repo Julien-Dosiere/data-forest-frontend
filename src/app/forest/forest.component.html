@@ -1,49 +1,53 @@
-<div class="row my-5 justify-content-center" *ngIf="isLoading">
-  <div class="col-1">
-    <h5 class="text-center fst-italic text-success">Loading...</h5>
+<app-spinner *ngIf="isLoading"></app-spinner>
 
-    <div class="lds-facebook"><div></div><div></div><div></div></div>
-  </div>
-</div>
 <div *ngIf="!isLoading">
-<div class="row my-5">
-  <h4 class="text-center">Select a forest:</h4>
-</div>
-<div class="row row-cols-1 row-cols-md-2 g-4 ">
-  <div class="col" *ngFor="let forest of forests">
-    <div
-      (click)="selectForests(forest.id)"
-      class="card text-white bg-success mb-3"
-      style="max-width: 18rem;"
-    >
-      <div class="card-body">
-        <h5 class="card-title">{{forest.name}}</h5>
-
-      </div>
-    </div>
-
+  <div class="row my-5">
+    <h4 class="text-center">Select a forest:</h4>
   </div>
-</div>
-<!-- Button trigger modal -->
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#generate">
-    Launch demo modal
-  </button>
+  <div class="row row-cols-1 row-cols-md-3 g-4 ">
+    <div class="col" *ngFor="let forest of forests">
+      <div
+        (click)="selectForests(forest.id)"
+        class="card  bg-light mb-3"
+        style="max-width: 18rem;"
+      >
+        <div class="card-body">
+          <h5 class="card-title">{{forest.name}}</h5>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- Button trigger modal -->
+
+  <div class="d-grid m-5 gap-5">
+    <button class="btn btn-success" type="submit" data-bs-toggle="modal" data-bs-target="#generate">
+      Generate new random forest
+
+    </button>
+    <button class="btn btn-danger" type="button" (click)="deleteAll()">
+      Delete all forests
+
+    </button>
+  </div>
 
   <!-- Modal -->
   <div class="modal fade" id="generate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Generate a new forest</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Generate new random forest</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form (ngSubmit)="onSubmit()" #form="ngForm">
 
           <div class="modal-body">
-            <label for="name" >New forest name :</label>
+            <label for="name">New forest name :</label>
             <input
               ngModel
-              name="name" id="name" type="text" class="mx-2" required>
+              name="name" id="name" type="text" class="mx-2" required
+            >
 
           </div>
           <div class="modal-footer">
