@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Forest, ForestService} from '../forest/forest.service';
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-navbar',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  selectedForestSub!: Subscription;
+  selectedForest?: Forest;
+
+
+  constructor(private forestService: ForestService) { }
 
   ngOnInit(): void {
+    this.selectedForestSub = this.forestService.selectedForest.subscribe(forest => this.selectedForest = forest)
   }
 
 }

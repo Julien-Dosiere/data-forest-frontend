@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import {Forest, ForestService} from "./forest.service";
 
@@ -8,15 +9,21 @@ import {Forest, ForestService} from "./forest.service";
   styleUrls: ['./forest.component.scss']
 })
 export class ForestComponent implements OnInit {
-  forestListSub?: Subscription;
+  forestsSub?: Subscription;
   forests?: Forest[];
-  constructor(private forestService: ForestService) { }
+  constructor(private forestService: ForestService, private router: Router) { }
 
   ngOnInit(): void {
     this.forestService.getAll();
-    this.forestListSub = this.forestService.forestslist.subscribe(forestList => {
-      this.forests = forestList
+    this.forestsSub = this.forestService.forests.subscribe(forests => {
+      this.forests = forests
     });
   }
+
+  selectForests(forestId: number): void {
+    this.forestService.selectForest(forestId);
+    this.router.navigate(['analytics'])
+  }
+
 
 }

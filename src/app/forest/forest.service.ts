@@ -1,27 +1,35 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../http.service';
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Subject} from "rxjs";
 
 
 export interface Forest {
-  name: string
+  id: number;
+  name: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class ForestService {
-  forestslist = new BehaviorSubject<Forest[]>([]);
+  forests = new BehaviorSubject<Forest[]>([]);
+  selectedForest = new Subject<Forest>();
   constructor(private httpService: HttpService) { }
 
-  getAll() {
+  getAll(): void {
     this.httpService.get('forests/').subscribe(responseData => {
       console.log(responseData);
-      this.forestslist.next(responseData);
+      this.forests.next(responseData);
     }, error => {
       console.log('http error !');
       console.log(error);
     });
+  }
+
+  selectForest(forestId: number): void {
+    const forestList: Forest[] = this.forests.getValue();
+    const selectedForest = forestList.find(forest => forest.id === forestId);
+    this.selectedForest.next(selectedForest);
   }
 
 

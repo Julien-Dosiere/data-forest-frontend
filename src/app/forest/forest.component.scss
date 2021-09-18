@@ -2,8 +2,20 @@
   cursor: pointer;
   transition-duration: .3s;
 
+
+  h5{
+    transition-duration: .3s;
+    color: #eee;
+
+  }
+
   &:hover{
 
     border-bottom: solid 4px  #555;
+
+    h5{
+      color: #fff;
+
+    }
   }
 }
