@@ -11,6 +11,7 @@ import {AnalyticsComponent} from "./analytics/analytics.component";
 import {MapComponent} from "./map/map.component";
 import {ManageComponent} from "./manage/manage.component";
 import {ErrorPageComponent} from "./error-page/error-page.component";
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import {ErrorPageComponent} from "./error-page/error-page.component";
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    FormsModule,
 
   ],
   providers: [],

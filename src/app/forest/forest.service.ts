@@ -32,5 +32,11 @@ export class ForestService {
     this.selectedForest.next(selectedForest);
   }
 
+  generateForest(forestName: string): void {
+    const formData = new FormData()
+    formData.append('name', forestName)
+    this.httpService.post('seed', formData).subscribe(_ => this.getAll());
+  }
+
 
 }
