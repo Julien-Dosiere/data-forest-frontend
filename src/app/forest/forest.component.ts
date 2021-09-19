@@ -9,7 +9,7 @@ import {NgForm} from "@angular/forms";
   templateUrl: './forest.component.html',
   styleUrls: ['./forest.component.scss']
 })
-export class ForestComponent implements OnDestroy {
+export class ForestComponent implements OnDestroy, OnInit {
   forestsSub?: Subscription;
   forests?: Forest[];
   isLoading = false;
