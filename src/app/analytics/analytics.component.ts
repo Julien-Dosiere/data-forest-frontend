@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { Subscription } from 'rxjs';
 import {AnalyticsService} from "./analytics.service";
 import {NgForm} from "@angular/forms";
@@ -9,7 +9,7 @@ import {Forest, ForestService} from "../forest/forest.service";
   templateUrl: './analytics.component.html',
   styleUrls: ['./analytics.component.scss']
 })
-export class AnalyticsComponent implements OnInit {
+export class AnalyticsComponent implements OnInit, OnDestroy {
   tableSub!: Subscription;
   table?: string;
   errorMessage?: string | null;
@@ -52,7 +52,10 @@ export class AnalyticsComponent implements OnInit {
       this.errorMessage = null;
     }
 
+  }
 
+  ngOnDestroy(): void {
+    this.tableSub.unsubscribe();
   }
 
 }

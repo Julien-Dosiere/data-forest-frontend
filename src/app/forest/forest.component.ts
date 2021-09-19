@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import {Forest, ForestService} from "./forest.service";
@@ -9,7 +9,7 @@ import {NgForm} from "@angular/forms";
   templateUrl: './forest.component.html',
   styleUrls: ['./forest.component.scss']
 })
-export class ForestComponent implements OnInit {
+export class ForestComponent implements OnDestroy {
   forestsSub?: Subscription;
   forests?: Forest[];
   isLoading = false;
@@ -46,5 +46,8 @@ export class ForestComponent implements OnInit {
     this.forestService.deleteAll();
   }
 
+  ngOnDestroy(): void {
+    this.forestsSub?.unsubscribe();
+  }
 
 }

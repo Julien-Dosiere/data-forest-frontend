@@ -22,7 +22,7 @@ export class AnalyticsService {
   getTable(columns?: string, rows?: string): void {
 
     const selectedForest = this.forestService.lastSelectedForest;
-    if(selectedForest == undefined)
+    if(!selectedForest)
       return;
     const forestId = selectedForest.id.toString();
 

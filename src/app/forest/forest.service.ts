@@ -13,7 +13,7 @@ export interface Forest {
 })
 export class ForestService {
   forests = new BehaviorSubject<Forest[]>([]);
-  selectedForest = new Subject<Forest>();
+  selectedForest = new BehaviorSubject<Forest | null>(null);
   public lastSelectedForest?: Forest;
   constructor(private httpService: HttpService) { }
 
@@ -29,7 +29,7 @@ export class ForestService {
   selectForest(forestId: number): void {
     const forestList: Forest[] = this.forests.getValue();
     const selectedForest = forestList.find(forest => forest.id === forestId);
-    this.selectedForest.next(selectedForest);
+    this.selectedForest.next(selectedForest ?? null);
     this.lastSelectedForest = selectedForest
   }
 
@@ -40,7 +40,8 @@ export class ForestService {
   }
 
   deleteAll(): void {
-      this.httpService.get('drop').subscribe(_ => this.getAll(), error => console.log(error))
+    this.httpService.get('drop').subscribe(_ => this.getAll(), error => console.log(error));
+    this.selectedForest.next(null);
   }
 
 }
